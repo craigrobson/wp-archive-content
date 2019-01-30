@@ -62,3 +62,31 @@ function wpac_maybe_process_form() {
   update_option("wpac_{$post_type}_archive_description", $description);
 }
 add_action('admin_init', 'wpac_maybe_process_form');
+
+/**
+ * Add the form to the post_types edit.php
+ * @return void
+ */
+function wpac_add_post_type_form() {
+  global $pagenow, $wp;
+  // Stop if we're not on the right page
+  // Or if the post_type query_var is not set
+  if($pagenow !== "edit.php" || !isset($wp->query_vars['post_type'])) {
+    return;
+  }
+
+  $post_type = $wp->query_vars['post_type'];
+  // If this post_type doesn't "has_archive"
+  $post_type_object = get_post_type_object($post_type);
+  var_dump($post_type_object);
+  ob_start();
+?>
+<div id="">
+
+</div>
+<?php
+  echo ob_get_clean();
+
+
+}
+add_action('admin_notices', 'wpac_add_post_type_form');
