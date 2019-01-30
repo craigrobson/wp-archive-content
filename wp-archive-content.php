@@ -6,3 +6,21 @@
  * Version: 1.0.0
  * Author: Craig Robson
  */
+
+/**
+ * Make "the_archive_description" function return our description
+ * Use the "get_the_archive_description" filter to get the custom description
+ * @param string $description
+ * @return string
+ */
+function wpac_get_archive_description($description) {
+  if(is_post_type_archive()) {
+    $post_type = get_post_type();
+    $post_type_object = get_post_type_object($post_type);
+    // Get the option, but return the current description if it's set
+    $description = get_option("wpac_{$post_type}_archive_description", $post_type_object->description);
+  }
+  // Return what we've got
+  return add_filter('wpac_description', $description);
+}
+add_filter('get_the_archive_description', 'wpac_get_archive_description');
