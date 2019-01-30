@@ -1,4 +1,5 @@
-<?php
+<?php if(!defined('ABSPATH')) exit;
+
 /**
  * Plugin Name: Archive Content
  * Description: Edit the content on archive pages
