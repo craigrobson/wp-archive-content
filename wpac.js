@@ -9,6 +9,5 @@ jQuery(function() {
   button.on('click', function(event) {
     event.preventDefault();
     editor_holder.toggleClass('hidden');
-  })
-
+  });
 })

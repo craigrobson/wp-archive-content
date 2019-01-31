@@ -9,4 +9,9 @@
     margin-left: 4px;
   }
   #wpac-wrapper #wpac-editor {
-    position: absolute; }
+    position: absolute;
+    width: 100%;
+    min-width: 300px;
+    max-width: 500px;
+    height: 350px;
+    background: red; }
