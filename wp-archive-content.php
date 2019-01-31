@@ -2,9 +2,10 @@
 
 /**
  * Plugin Name: Archive Content
- * Description: Edit the content on archive pages
+ * Description: Allow the archive title and archive description to be changed. Adds a simple form to posts edit page to change the output of the archive title and archive description functions.
  * Version: 1.0.0
  * Author: Craig Robson
+ * Author URI: http://craigrobson.github.io/
  */
 
 define('WPAC_URL', plugin_dir_url(__FILE__));
