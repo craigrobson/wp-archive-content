@@ -60,7 +60,7 @@ if(!class_exists('WPAC')) {
   <button class="button button-primary" type="button">
     Edit Archive Content
   </button>
-  <div id="wpac-editor">
+  <div id="wpac-editor" class="hidden">
     <div id="wpac-title-holder">
       <input type="text" name="title" value="<?php the_archive_title(); ?>" />
     </div>
