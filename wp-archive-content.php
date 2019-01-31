@@ -95,18 +95,31 @@ if(!class_exists('WPAC')) {
       }
 
       ob_start();
+      // If the wpac-updated is set - display the message
+      if(isset($_GET['wpac-updated'])) {
+  ?>
+  <div class="notice updated is-dismissible">
+    <p>Archive content updated. <a href="<?php echo esc_url(get_post_type_archive_link($this->post_type)); ?>">View the Archive</a></p>
+  </div>
+  <?php
+      }
 ?>
 <div id="wpac-wrapper">
-  <button class="button button-primary" type="button">
+  <button class="button button-primary" type="button" id="wpac-trigger">
     Edit Archive Content
   </button>
   <div id="wpac-editor" class="hidden">
     <form action="" method="post">
       <div id="wpac-title-holder">
-        <input type="text" name="title" value="<?php the_archive_title(); ?>" />
+        <label for="title">
+          Archive Title:
+          <input type="text" name="title" value="<?php the_archive_title(); ?>" />
+        </label>
       </div>
       <div id="wpac-wysiwyg-holder">
-        <?php wp_editor(the_archive_description(), 'description'); ?>
+        <?php wp_editor(get_the_archive_description(), 'description', array(
+          'teeny' => true
+        )); ?>
       </div>
       <button type="submit" class="button">Update Content</button>
       <input type="hidden" name="wpac" value="<?php echo $this->post_type; ?>" />
@@ -139,6 +152,8 @@ if(!class_exists('WPAC')) {
 
       update_option("wpac_{$post_type}_title", $title);
       update_option("wpac_{$post_type}_description", $description);
+      wp_redirect(admin_url("edit.php?post_type={$post_type}&wpac-updated=true"));
+      exit;
     }
 
     /**
