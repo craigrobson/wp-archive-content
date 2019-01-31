@@ -2,16 +2,52 @@
   position: relative;
   padding: 0;
   margin: 0;
+  width: 100%;
   display: inline-block; }
   #wpac-wrapper > button {
     position: relative;
-    top: -8px;
-    margin-left: 4px;
-  }
+    margin: 0 auto;
+    display: block;
+    width: 100%; }
   #wpac-wrapper #wpac-editor {
-    position: absolute;
-    width: 100%;
-    min-width: 300px;
-    max-width: 500px;
-    height: 350px;
-    background: red; }
+    z-index: 500;
+    margin: 10px auto; }
+  #wpac-wrapper #wpac-title-holder {
+    display: block;
+    margin-bottom: 15px; }
+    #wpac-wrapper #wpac-title-holder label {
+      display: block;
+      text-transform: uppercase; }
+    #wpac-wrapper #wpac-title-holder input {
+      width: 100%;
+      font-size: 14px; }
+  #wpac-wrapper #wpac-wysiwyg-holder {
+    margin-bottom: 15px; }
+
+
+@media print, screen and (min-width:64em) {
+  #wpac-wrapper {
+    width: auto; }
+    #wpac-wrapper > button {
+      top: -8px;
+      margin-left: 5px;
+      display: inline-block;
+      width: auto; }
+    #wpac-wrapper #wpac-editor {
+      position: absolute;
+      width: 700px;
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+      top: 100%; left: -50px;
+      margin: 0;
+      background: #fff;
+      padding: 20px;
+      border-radius: 5px; }
+      #wpac-wrapper #wpac-editor::before {
+        position: absolute;
+        top: -12px; left: 70px;
+        content: '';
+        border: 6px solid transparent;
+        border-bottom-color: #ffffff; }
+    #wpac-wrapper #wpac-title-holder input {
+      font-size: 18px; }
+}
