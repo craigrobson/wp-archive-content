@@ -27,7 +27,7 @@ if(!class_exists('WPAC')) {
       // Enqueue the CSS and JS for the admin
       add_action('admin_enqueue_scripts', array($this, 'enqueue_assets'));
       // Add the form to edit.php
-      add_action('admin_init', array($this, 'render_form'));
+      add_action('admin_notices', array($this, 'render_form'));
     }
 
     /**
