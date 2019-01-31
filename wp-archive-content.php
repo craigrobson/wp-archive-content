@@ -9,7 +9,7 @@
 
 define('WPAC_URL', plugin_dir_url(__FILE__));
 
-if(class_exists('WPAC')) {
+if(!class_exists('WPAC')) {
 
   class WPAC {
     /**
