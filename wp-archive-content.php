@@ -37,6 +37,10 @@ if(!class_exists('WPAC')) {
       // Filters that return the archive title and description
       add_filter('get_the_archive_title', array($this, 'get_the_archive_title'));
       add_filter('get_the_archive_description', array($this, 'get_the_archive_description'));
+      // Only filter the shortcode on the frontend
+      if(!is_admin()) {
+        add_filter('wpac_the_description', 'do_shortcode');
+      }
     }
 
     /**
@@ -69,6 +73,7 @@ if(!class_exists('WPAC')) {
         $default = $post_type_object->description;
         $description = get_option("wpac_{$post_type}_description", $default);
       }
+
       // Filter what we've got and return
       return apply_filters('wpac_the_description', $description);
     }
