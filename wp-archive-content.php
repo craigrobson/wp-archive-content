@@ -31,6 +31,8 @@ if(!class_exists('WPAC')) {
       add_action('admin_notices', array($this, 'render_form'));
       // Maybe process the post
       add_action('admin_init', array($this, 'maybe_process_form'));
+      // add the shortcode
+      add_shortcode('wpac-posts', array($this, 'output_shortcode'));
 
       // Filters that return the archive title and description
       add_filter('get_the_archive_title', array($this, 'get_the_archive_title'));
@@ -185,9 +187,32 @@ if(!class_exists('WPAC')) {
       // If this post_type doesn't "has_archive"
       return $post_type_object->has_archive;
     }
+
+    /**
+     * Output the [wpac-posts] shortcode
+     * @param array $atts
+     * @return string
+     */
+    public function output_shortcode($atts) {
+      $atts = shortcode_atts(array(), $atts, 'wpac-posts');
+      ob_start();
+      /**
+       * WordPress will do everything as usual
+       * Once loaded we'll move the posts into this container with some Javascript
+       */
+?>
+<div class="wpac-loop" data-post_type="<?php echo get_post_type(); ?>"></div>
+<?php
+      $output = ob_get_clean();
+
+      // Enqueue the JS file
+      wp_enqueue_script('wpac-loop', WPAC_URL . "/wpac-loop.min.js", array('jquery'), null, true);
+
+      // Filter and return what we've got
+      return apply_filters('wpac_shortcode_output', $output);
+    }
   }
 
   global $wpac;
   $wpac = new WPAC;
-
 }
