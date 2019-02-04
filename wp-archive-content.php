@@ -162,11 +162,21 @@ if(!class_exists('WPAC')) {
      * @return bool
      */
     private function wpac_page() {
-      global $pagenow, $wp;
-      if($pagenow !== "edit.php" || !isset($wp->query_vars['post_type'])) {
+      global $wp;
+      // Stop if the post_type is not set
+      if(!isset($wp->query_vars['post_type'])) {
         return false;
       }
 
+      // If we're on the admin check the pagenow
+      if(is_admin()) {
+        global $pagenow;
+        if($pagenow !== "edit.php") {
+          return false;
+        }
+      }
+
+      // Set the post_type and get the object
       $this->post_type = $wp->query_vars['post_type'];
       $post_type_object = get_post_type_object($this->post_type);
       if(!$post_type_object) {
