@@ -39,6 +39,7 @@ if(!class_exists('WPAC')) {
       add_filter('get_the_archive_description', array($this, 'get_the_archive_description'));
       // Only filter the shortcode on the frontend
       if(!is_admin()) {
+        add_filter('wpac_the_description', 'wpautop');
         add_filter('wpac_the_description', 'do_shortcode');
       }
     }
@@ -156,7 +157,7 @@ if(!class_exists('WPAC')) {
       }
 
       $title = isset($_POST['title']) ? $_POST['title'] : get_the_archive_title();
-      $description = isset($_POST['description']) ? $_POST['description'] : '';
+      $description = isset($_POST['description']) ? wp_kses_post(stripslashes($_POST['description'])) : '';
 
       update_option("wpac_{$post_type}_title", $title);
       update_option("wpac_{$post_type}_description", $description);
